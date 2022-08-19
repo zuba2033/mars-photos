@@ -1,19 +1,38 @@
 import './roverFilter.scss';
 
-const RoverFilter = () => {
+import { useState, useEffect } from 'react';
+
+// import useNasaService from '../../services/useNasaService';
+
+const RoverFilter = (props) => {
+
+    // const {getMissionManifest} = useNasaService();
+
+    // const onRequestManifest = (rover) => {
+    //     getMissionManifest(rover);
+    // }
+
+    // useEffect(() => {
+    //     if (!rover) return;
+    //     onRequestManifest(rover)
+    // }, [rover])
+
+    const onRadioChange = (e) => {
+        props.onRoverSelected(e.target.value);
+    }
+
     return (
-        <form className="roverFilter">
-            <h2 className="roverFilter__title">Choose the rover</h2>
+        <div className="roverFilter" >
+            <h2 className="roverFilter__title">Select rover</h2>
             <div className="roverFilter__inputs">
                 <label htmlFor="curiosity">Curiosity</label>
-                <input checked type="radio" name="curiosity" id="curiosity" value="curiosity" />
+                <input type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
                 <label htmlFor="opportunity">Opportunity</label>
-                <input type="radio" name="opportunity" id="opportunity" value="opportunity" />
+                <input type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
                 <label htmlFor="spirit">Spirit</label>
-                <input type="radio" name="spirit" id="spirit" value="spirit" />
+                <input type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
             </div>
-            <button className="roverFilter__btn" type='submit'>Submit</button>
-        </form>
+        </div>
     )
 }
 

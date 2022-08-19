@@ -2,12 +2,12 @@ import { useState } from 'react';
 import '../../styles/style.scss';
 
 import Banner from '../banner/Banner';
-import RoverFilter from '../roverFilter/RoverFilter';
+import FilterForm from '../filterForm/FilterForm';
 import ImageGallery from '../imageGallery/ImageGallery';
 
 function App() {
 
-  const [selectedRover, setSelectedRover] = useState();
+  const [selectedRover, setSelectedRover] = useState(null);
 
   const onRoverSelected = (rover) => {
     setSelectedRover(rover);
@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <Banner/>
-      <RoverFilter onRoverSelected={onRoverSelected} />
+      <FilterForm onRoverSelected={onRoverSelected} />
       <ImageGallery selectedRover={selectedRover} />
     </div>
   );

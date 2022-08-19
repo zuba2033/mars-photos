@@ -1,0 +1,26 @@
+.imageGallery {
+    margin-top: 20px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto;
+    justify-items: center;
+    &__card {
+        background-color: #C4C4C4;;
+        box-shadow: 0px 0px 20px rgb(0 0 0 / 25%);
+        border: 1px solid #000;
+        img {
+            object-fit: cover;
+            height: 200px;
+            width: 200px;
+        }
+    }
+    &__descr {
+        padding: 10px;
+        li {
+            margin-top: 3px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+    }
+}
