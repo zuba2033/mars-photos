@@ -6,19 +6,9 @@ import { useState, useEffect } from 'react';
 
 const RoverFilter = (props) => {
 
-    // const {getMissionManifest} = useNasaService();
-
-    // const onRequestManifest = (rover) => {
-    //     getMissionManifest(rover);
-    // }
-
-    // useEffect(() => {
-    //     if (!rover) return;
-    //     onRequestManifest(rover)
-    // }, [rover])
-
     const onRadioChange = (e) => {
         props.onRoverSelected(e.target.value);
+        props.onRoverClicked(e.target.value);
     }
 
     return (
@@ -31,6 +21,8 @@ const RoverFilter = (props) => {
                 <input type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
                 <label htmlFor="spirit">Spirit</label>
                 <input type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
+                <label htmlFor="perseverance">Perseverance</label>
+                <input type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
             </div>
         </div>
     )

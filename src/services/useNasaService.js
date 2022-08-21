@@ -9,11 +9,11 @@ const useNasaService = () => {
 
     const getMissionManifest = async (rover) => {
         const res = await request(`${_apiBase}mars-photos/api/v1/manifests/${rover}/?${_apiKey}`);
-        return _transformManifestData(res);
+        return _transformManifestData(res.photo_manifest);
     }
 
-    const getImagesData = async (rover) => {
-        const res = await request(`${_apiBase}mars-photos/api/v1/rovers/${rover}/photos?sol=100&page=2&${_apiKey}`);
+    const getImagesData = async (rover, sol = 'none') => {
+        const res = await request(`${_apiBase}mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&${_apiKey}`);
         return res.photos.map(_transformImagesData);
     }
 

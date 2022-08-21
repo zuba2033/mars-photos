@@ -15,17 +15,17 @@ const ImageGallery = (props) => {
         setImagesData(data);
     }
 
-    const onRequestImages = (rover) => {
+    const onRequestImages = (rover, sol) => {
         clearError();
-        if (!rover) return;
-        getImagesData(rover)
+        if (!rover && !sol) return;
+        getImagesData(rover, sol)
             .then(onImagesDataLoaded);
     }
 
     useEffect(() => {
-        onRequestImages(props.selectedRover);
+        onRequestImages(props.selectedRover, props.selectedSol);
         // eslint-disable-next-line
-    }, [props.selectedRover])
+    }, [props.selectedRover, props.selectedSol])
 
 
     function renderItemList(arr) {
@@ -34,7 +34,7 @@ const ImageGallery = (props) => {
                 <li className="imageGallery__card"
                      key={item.id}
                      >
-                    <img src={item.path} alt="photo from mars" />
+                    <img src={item.path} alt="img from mars" />
                     <div className="imageGallery__descr">
                         <ul>
                             <li>Rover: {item.rover}</li>
