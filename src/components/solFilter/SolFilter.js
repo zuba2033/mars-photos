@@ -1,18 +1,27 @@
+import { useRef } from 'react';
 import './solFilter.scss';
-
-import { useState } from 'react';
 
 const SolFilter = (props) => {
 
-    const [selectedSol, setSelectedSol] = useState(null);
-
     const onInputChange = (e) => {
-        setSelectedSol(+e.target.value);
+        props.onSolSelected(e.target.value);
     }
 
-    const onSolSelected = () => {
-        props.onSolSelected(selectedSol);
+    const getRandomIntInclusive = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min); 
     }
+
+    const onRandomBtnClick = () => {
+        const randomInt = getRandomIntInclusive(1, props.maxSol);
+        props.onSolSelected(randomInt);
+        myRef.current.value = randomInt;
+    }
+
+    const myRef = useRef(null);
+
+    const disabled = props.maxSol >= 1 ? false : true;
 
     return (
         <div className="solFilter">
@@ -24,8 +33,14 @@ const SolFilter = (props) => {
                    step={1}
                    id='solFilter__input' 
                    className='solFilter__input'
-                   onChange={onInputChange}/>
-            <button className="solFilter__btn" onClick={onSolSelected}>Confirm</button>
+                   onChange={onInputChange}
+                   disabled={disabled}
+                   ref={myRef}
+                   />
+            <button type="button" 
+                    disabled={disabled}  
+                    className="solFilter__btn"
+                    onClick={onRandomBtnClick}>Random</button>
         </div>
     )
 }

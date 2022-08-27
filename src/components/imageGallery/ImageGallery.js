@@ -1,9 +1,10 @@
 import './imageGallery.scss';
-import abyss from '../../images/abyss.jpg'
 
 import { useEffect, useState } from 'react';
 
 import useNasaService from '../../services/useNasaService';
+import ImageGallerySkeleton from '../imageGallerySkeleton/ImageGallerySkeleton';
+import Spinner from '../spinner/Spinner';
 
 const ImageGallery = (props) => {
 
@@ -17,7 +18,7 @@ const ImageGallery = (props) => {
 
     const onRequestImages = (rover, sol) => {
         clearError();
-        if (!rover && !sol) return;
+        if (!rover || !sol) return;
         getImagesData(rover, sol)
             .then(onImagesDataLoaded);
     }
@@ -29,7 +30,7 @@ const ImageGallery = (props) => {
 
 
     function renderItemList(arr) {
-        const itemList = arr.map((item, i) => {
+        const itemList = arr.map(item => {
             return (
                 <li className="imageGallery__card"
                      key={item.id}
@@ -53,10 +54,17 @@ const ImageGallery = (props) => {
         )
     }
 
-    const items = imagesData ? renderItemList(imagesData) : null;
+    const spinner = loading ? <Spinner/> : null;
+    const skeleton = imagesData || loading ? null : <ImageGallerySkeleton/>;
+    const items = imagesData && !loading ? renderItemList(imagesData) : null;
+    const wrapStyles = loading ? {"padding": "50px"} : null;
 
     return (
-        <section>{items}</section>
+        <section style={wrapStyles}>
+            {spinner}
+            {skeleton}
+            {items}
+        </section>
     )
 }
 

@@ -34,7 +34,7 @@ const FilterForm = (props) => {
                 <RoverFilter onRoverSelected={onRoverSelected} onRoverClicked={props.onRoverClicked}/>
                 <SolFilter selectedRover={selectedRover} maxSol={props.maxSol} onSolSelected={onSolSelected}/>
             </div>
-            <button className="filterForm__btn">Get images</button>
+            <input type="submit" className="filterForm__btn" value="Get photos"/>
         </form>
     )
 
