@@ -1,17 +1,23 @@
 import './missionManifest.scss';
 
-import curiosityImg from '../../images/curiosity.webp';
+import curiosityImg from '../../images/curiosity.jpg';
 import spiritAndOpportunityImg from '../../images/opportunity.jpg';
+import perseveranceImg from '../../images/perseverance.jpg';
 
 import { useState, useEffect } from 'react';
+import { CSSTransition } from 'react-transition-group';
 
 import useNasaService from '../../services/useNasaService';
 import ManifestSkeleton from '../manifestSkeleton/ManifestSkeleton';
 import Spinner from '../spinner/Spinner';
+import RoverPhotoModal from '../roverPhotoModal/RoverPhotoModal';
 
 const MissionManifest = (props) => {
 
     const [manifestData, setManifestData] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [manifestDataLoaded, setManifestDataLoaded] = useState(false);
+    const [spinnerReady, setSpinnerReady] = useState(true);
 
     const { loading, getMissionManifest, clearError} = useNasaService();
 
@@ -25,60 +31,95 @@ const MissionManifest = (props) => {
             .then(onManifestDataLoaded);
     }
 
+    const onModalClose = () => {
+        setModalOpen(false);
+    }
+
     useEffect(() => {
         if (!props.clickedRover) return;
         onRequestManifest(props.clickedRover)
+        // eslint-disable-next-line
     }, [props.clickedRover])
 
     useEffect(() => {
         if(!manifestData) return;
         const {maxSol} = manifestData;
         props.getMaxSol(maxSol);
+        // eslint-disable-next-line
     }, [manifestData]);
 
+    useEffect(() => {
+        if (manifestData && !loading && !modalOpen) {
+            setManifestDataLoaded(true); /* for css transition */
+        } else {
+            setManifestDataLoaded(false);
+        }
+    }, [manifestData, loading, modalOpen]);
+
+    let roverPhoto;
+    if (props.clickedRover === 'spirit' || props.clickedRover === "opportunity") {
+        roverPhoto = spiritAndOpportunityImg;
+    } else if (props.clickedRover === 'curiosity') {
+        roverPhoto = curiosityImg;
+    } else if (props.clickedRover === "perseverance") {
+        roverPhoto = perseveranceImg;
+    }
+
+    const duration = 500;
+
     const skeleton = manifestData || loading ? null : <ManifestSkeleton/>;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !loading && manifestData ? <View data={manifestData} clickedRover={props.clickedRover}/> : null;
-    const wrapStyles = loading ? {"display" : "flex", "height": "250px", "justifyContent": "center", "alignItems": "center"} : null;
+    const spinner = loading && spinnerReady ? <Spinner/> : null;
+    const content = 
+        <CSSTransition 
+            in={manifestDataLoaded} 
+            classNames="missionManifest"
+            unmountOnExit
+            timeout={duration}
+            onEnter={() => setSpinnerReady(false)}
+            onExited={() => setSpinnerReady(true)}>
+            <View roverPhoto={roverPhoto} 
+                manifestData={manifestData} 
+                setModalOpen={setModalOpen} />
+        </CSSTransition>;
+    const wrapStyles = loading && spinnerReady ? {"display" : "flex", "height": "250px", "justifyContent": "center", "alignItems": "center"} : null;
+    const modal = <RoverPhotoModal open={modalOpen} onModalClose={onModalClose} roverPhoto={roverPhoto} />;
+
+    if (modalOpen) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "visible";
+    }
 
     return (
-        <div className="missionManifest__wrapper" style={wrapStyles}>
-            {skeleton}
-            {spinner}
-            {content}
-        </div>
+        <>
+            {modal}
+            <div className="missionManifest__wrapper" style={wrapStyles}>
+                {skeleton}
+                {spinner}
+                {content}
+            </div>
+        </>
     )
-
 }
 
-const View = ({data}, clickedRover) => {
+const View = (props) => {
 
-    const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = data;
-    console.log(clickedRover);
-    let roverPhoto;
-    if (clickedRover === 'spirit' || clickedRover === "opportunity") {
-        roverPhoto = spiritAndOpportunityImg;
-    } else if (clickedRover === 'curiosity') {
-        roverPhoto = curiosityImg;
-    } else if (clickedRover === "perseverance") {
-        roverPhoto = spiritAndOpportunityImg;
-    }
-    console.log(roverPhoto);
+    const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifestData;
 
     return (
         <div className="missionManifest">
-        <div className="missionManifest__img"><img src={roverPhoto} alt="" /></div>
-        <ul className="missionManifest__list">
-            <h2>Mission manifest</h2>
-            <li>Name: {name}</li>
-            <li>Landing date: {landingDate}</li>
-            <li>Launch date: {launchDate}</li>
-            <li>Max date: {maxDate}</li>
-            <li>Max sol: {maxSol}</li>
-            <li>Status: {status}</li>
-            <li>Total photos: {totalPhotos}</li>
-        </ul>
-    </div>
+            <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} ><img src={props.roverPhoto} alt="" /></div>
+            <ul className="missionManifest__list">
+                <h2>Mission manifest</h2>
+                <li>Name: {name}</li>
+                <li>Landing date: {landingDate}</li>
+                <li>Launch date: {launchDate}</li>
+                <li>Max date: {maxDate}</li>
+                <li>Max sol: {maxSol}</li>
+                <li>Status: {status}</li>
+                <li>Total photos: {totalPhotos}</li>
+            </ul>
+        </div>
     )
 
 }

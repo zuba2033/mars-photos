@@ -1,0 +1,48 @@
+.roverPhotoModal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+    cursor: pointer;
+    &__img {
+        position: relative;
+        img {
+            max-width: 800px;
+            max-height: 600px;
+            cursor: default;
+        }
+    }
+    &__close {
+        cursor: pointer;
+        position: absolute;
+        top: 0 ;
+        right: -20px;
+        font-weight: 700;
+        font-size: 25px;
+        color: red;
+    }
+}
+
+.roverPhotoModal-enter {
+    opacity: 0;
+  }
+  .roverPhotoModal-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1000ms, transform 1000ms;
+  }
+  .roverPhotoModal-exit {
+    opacity: 1;
+  }
+  .roverPhotoModal-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms, transform 1000s;
+  }
+  

@@ -39,7 +39,7 @@ function App() {
                     maxSol={maxSol}  />
         <MissionManifest clickedRover={clickedRover} getMaxSol={getMaxSol}/>
       </div>
-      <ImageGallery selectedRover={selectedRover} selectedSol={selectedSol} />
+      <ImageGallery key={selectedRover + selectedSol} selectedRover={selectedRover} selectedSol={selectedSol} />
     </div>
   );
 }

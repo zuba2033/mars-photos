@@ -28,7 +28,7 @@ const SolFilter = (props) => {
             <h2 className="solFilter__title">Select sol</h2>
             <label htmlFor="solFilter__input">Enter the integer from 1 to {props.maxSol}</label>
             <input type="number"
-                   min={1} 
+                   min={0} 
                    max={props.maxSol} 
                    step={1}
                    id='solFilter__input' 

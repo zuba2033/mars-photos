@@ -1,8 +1,6 @@
 import './filterForm.scss';
 
-import { useState, useEffect } from "react";
-
-import useNasaService from "../../services/useNasaService";
+import { useState } from "react";
 
 import RoverFilter from "../roverFilter/RoverFilter";
 import SolFilter from "../solFilter/SolFilter";

@@ -13,9 +13,8 @@ const useNasaService = () => {
         return _transformManifestData(res.photo_manifest);
     }
 
-    const getImagesData = async (rover, sol = 'none') => {
-        
-        const res = await request(`${_apiBase}mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=1&${_apiKey}`);
+    const getImagesData = async (rover, sol, page = 1) => {
+        const res = await request(`${_apiBase}mars-photos/api/v1/rovers/${rover}/photos?sol=${sol}&page=${page}&${_apiKey}`);
         console.log(res);
         return res.photos.map(_transformImagesData);
     }

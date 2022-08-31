@@ -8,23 +8,27 @@ import Spinner from '../spinner/Spinner';
 
 const ImageGallery = (props) => {
 
-    const {loading, error, getImagesData, clearError} = useNasaService();
+    const {loading, getImagesData, clearError} = useNasaService();
 
-    const [imagesData, setImagesData] = useState(null);
+    const [imagesData, setImagesData] = useState([]);
+    const [nextPage, setNextPage] = useState(1);
+    const [firstLoading, setFirstLoading] = useState(true);
 
-    const onImagesDataLoaded = (data) => {
-        setImagesData(data);
+    const onImagesDataLoaded = (newData) => {
+        setImagesData(data => [...data, ...newData]);
+        setNextPage(page => page + 1);
+        setFirstLoading(false);
     }
 
-    const onRequestImages = (rover, sol) => {
+    const onRequestImages = (rover, sol, page) => {
         clearError();
         if (!rover || !sol) return;
-        getImagesData(rover, sol)
+        getImagesData(rover, sol, page)
             .then(onImagesDataLoaded);
     }
 
     useEffect(() => {
-        onRequestImages(props.selectedRover, props.selectedSol);
+        onRequestImages(props.selectedRover, props.selectedSol, nextPage);
         // eslint-disable-next-line
     }, [props.selectedRover, props.selectedSol])
 
@@ -48,20 +52,28 @@ const ImageGallery = (props) => {
             )
         })
         return (
-            <ul className="imageGallery">
-                {itemList}
-            </ul>
+            <div className="imageGallery__wrap">
+                {arr.length === 0 ? 
+                <h2 className="imageGallery__title">There is no photo for this sol</h2> : 
+                <ul className="imageGallery">
+                    {itemList}
+                </ul>}
+                <button 
+                    onClick={() => onRequestImages(props.selectedRover, props.selectedSol, nextPage)} 
+                    disabled={loading}
+                    className="imageGallery__btn">{loading  ? "Loading..." : "Load next page" }</button>    
+            </div>
         )
     }
 
     const spinner = loading ? <Spinner/> : null;
-    const skeleton = imagesData || loading ? null : <ImageGallerySkeleton/>;
-    const items = imagesData && !loading ? renderItemList(imagesData) : null;
-    const wrapStyles = loading ? {"padding": "50px"} : null;
+    const skeleton = imagesData.length === 0 && firstLoading && !loading ? <ImageGallerySkeleton/> : null;
+    const items = imagesData && !firstLoading ? renderItemList(imagesData) : null;
+    const wrapStyles = firstLoading && loading ? {"padding": "50px"} : null;
 
     return (
         <section style={wrapStyles}>
-            {spinner}
+            {firstLoading ? spinner : null}
             {skeleton}
             {items}
         </section>
