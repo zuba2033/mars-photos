@@ -1,6 +1,7 @@
 import './imageGallery.scss';
 
 import { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import useNasaService from '../../services/useNasaService';
 import ImageGallerySkeleton from '../imageGallerySkeleton/ImageGallerySkeleton';
@@ -13,11 +14,15 @@ const ImageGallery = (props) => {
     const [imagesData, setImagesData] = useState([]);
     const [nextPage, setNextPage] = useState(1);
     const [firstLoading, setFirstLoading] = useState(true);
+    const [imagesDataLoaded, setImagesDataLoaded] = useState(false);
+
+    const transitionDuration = 1000;
 
     const onImagesDataLoaded = (newData) => {
         setImagesData(data => [...data, ...newData]);
         setNextPage(page => page + 1);
         setFirstLoading(false);
+        setImagesDataLoaded(true);
     }
 
     const onRequestImages = (rover, sol, page) => {
@@ -36,46 +41,56 @@ const ImageGallery = (props) => {
     function renderItemList(arr) {
         const itemList = arr.map(item => {
             return (
-                <li className="imageGallery__card"
-                     key={item.id}
-                     >
-                    <img src={item.path} alt="img from mars" />
-                    <div className="imageGallery__descr">
-                        <ul>
-                            <li>Rover: {item.rover}</li>
-                            <li>Earth_date: {item.earthDate}</li>
-                            <li>Sol: {item.sol}</li>
-                            <li>{item.camera}</li>
-                        </ul>
-                    </div>
-                </li>
+                <CSSTransition
+                    key={item.id} 
+                    in={imagesDataLoaded}
+                    timeout={transitionDuration}
+                    classNames='imageGallery__card'>
+                    <li className="imageGallery__card">
+                        <img src={item.path} alt="img from mars"/>
+                        <div className="imageGallery__descr">
+                            <ul>
+                                <li>Rover: {item.rover}</li>
+                                <li>Earth_date: {item.earthDate}</li>
+                                <li>Sol: {item.sol}</li>
+                                <li>{item.camera}</li>
+                            </ul>
+                        </div>
+                    </li>    
+                </CSSTransition> 
             )
         })
         return (
-            <div className="imageGallery__wrap">
-                {arr.length === 0 ? 
-                <h2 className="imageGallery__title">There is no photo for this sol</h2> : 
-                <ul className="imageGallery">
+            <ul className="imageGallery__list">
+                <TransitionGroup component={null}>
                     {itemList}
-                </ul>}
-                <button 
-                    onClick={() => onRequestImages(props.selectedRover, props.selectedSol, nextPage)} 
-                    disabled={loading}
-                    className="imageGallery__btn">{loading  ? "Loading..." : "Load next page" }</button>    
-            </div>
+                </TransitionGroup>
+            </ul>
         )
     }
 
-    const spinner = loading ? <Spinner/> : null;
+    const spinner = loading && firstLoading ? <Spinner/> : null;
     const skeleton = imagesData.length === 0 && firstLoading && !loading ? <ImageGallerySkeleton/> : null;
-    const items = imagesData && !firstLoading ? renderItemList(imagesData) : null;
+    const items = renderItemList(imagesData);
+    const button = props.totalPhotosInSol === imagesData.length ? null : 
+    <button 
+        onClick={() => onRequestImages(props.selectedRover, props.selectedSol, nextPage)} 
+        disabled={loading}
+        className="imageGallery__btn">{loading  ? "Loading..." : "Load next page" }
+    </button>    
+
     const wrapStyles = firstLoading && loading ? {"padding": "50px"} : null;
 
     return (
-        <section style={wrapStyles}>
-            {firstLoading ? spinner : null}
+        <section className="imageGallery" style={wrapStyles}>
+            {spinner}
             {skeleton}
-            {items}
+            {imagesData.length === 0 && !firstLoading ? 
+                <h2 className="imageGallery__title">There is no photo for this sol</h2> : 
+                items
+            }
+            {button}
+           
         </section>
     )
 }

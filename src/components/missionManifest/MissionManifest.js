@@ -23,6 +23,7 @@ const MissionManifest = (props) => {
 
     const onManifestDataLoaded = (data) => {
         setManifestData(data);
+        props.setManifestData(data);
     }
 
     const onRequestManifest = (rover) => {
@@ -44,7 +45,7 @@ const MissionManifest = (props) => {
     useEffect(() => {
         if(!manifestData) return;
         const {maxSol} = manifestData;
-        props.getMaxSol(maxSol);
+        props.setMaxSol(maxSol);
         // eslint-disable-next-line
     }, [manifestData]);
 
@@ -69,6 +70,7 @@ const MissionManifest = (props) => {
 
     const skeleton = manifestData || loading ? null : <ManifestSkeleton/>;
     const spinner = loading && spinnerReady ? <Spinner/> : null;
+    const modal = <RoverPhotoModal open={modalOpen} onModalClose={onModalClose} roverPhoto={roverPhoto} />;
     const content = 
         <CSSTransition 
             in={manifestDataLoaded} 
@@ -77,12 +79,13 @@ const MissionManifest = (props) => {
             timeout={duration}
             onEnter={() => setSpinnerReady(false)}
             onExited={() => setSpinnerReady(true)}>
-            <View roverPhoto={roverPhoto} 
+            <View loading={loading}
+                roverPhoto={roverPhoto} 
                 manifestData={manifestData} 
                 setModalOpen={setModalOpen} />
         </CSSTransition>;
+
     const wrapStyles = loading && spinnerReady ? {"display" : "flex", "height": "250px", "justifyContent": "center", "alignItems": "center"} : null;
-    const modal = <RoverPhotoModal open={modalOpen} onModalClose={onModalClose} roverPhoto={roverPhoto} />;
 
     if (modalOpen) {
         document.body.style.overflow = "hidden";
@@ -105,19 +108,22 @@ const MissionManifest = (props) => {
 const View = (props) => {
 
     const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifestData;
+    const loading = props.loading;
 
     return (
         <div className="missionManifest">
-            <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} ><img src={props.roverPhoto} alt="" /></div>
+            <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} >
+                { loading ? null : <img src={props.roverPhoto} alt="" /> }
+            </div>
             <ul className="missionManifest__list">
                 <h2>Mission manifest</h2>
-                <li>Name: {name}</li>
-                <li>Landing date: {landingDate}</li>
-                <li>Launch date: {launchDate}</li>
-                <li>Max date: {maxDate}</li>
-                <li>Max sol: {maxSol}</li>
-                <li>Status: {status}</li>
-                <li>Total photos: {totalPhotos}</li>
+                <li>Name: {loading ? null : name}</li>
+                <li>Landing date: {loading ? null : landingDate}</li>
+                <li>Launch date: {loading ? null : launchDate}</li>
+                <li>Max date: {loading ? null : maxDate}</li>
+                <li>Max sol: {loading ? null : maxSol}</li>
+                <li>Status: {loading ? null : status}</li>
+                <li>Total photos: {loading ? null : totalPhotos}</li>
             </ul>
         </div>
     )
@@ -125,3 +131,5 @@ const View = (props) => {
 }
 
 export default MissionManifest;
+
+

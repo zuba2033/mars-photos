@@ -12,6 +12,12 @@ function App() {
   const [clickedRover, setClickedRover] = useState(null);
   const [selectedSol, setSelectedSol] = useState(null);
   const [maxSol, setMaxSol] = useState('-');
+  const [manifestData, setManifestData] = useState(null);
+  const [totalPhotosInSol, setTotalPhotosInSol] = useState(null);
+
+  const onTotalPhotosInSolChanged = (totalPhotos) => {
+    setTotalPhotosInSol(totalPhotos);
+  }
 
   const onRoverSelected = (rover) => {
     setSelectedRover(rover);
@@ -25,10 +31,6 @@ function App() {
     setClickedRover(rover);
   }
 
-  const getMaxSol = (sol) => {
-    setMaxSol(sol);
-  }
-
   return (
     <div className="App">
       <Banner/>
@@ -36,10 +38,15 @@ function App() {
         <FilterForm onRoverSelected={onRoverSelected}
                     onRoverClicked={onRoverClicked}
                     onSolSelected={onSolSelected}
-                    maxSol={maxSol}  />
-        <MissionManifest clickedRover={clickedRover} getMaxSol={getMaxSol}/>
+                    maxSol={maxSol}
+                    manifestData={manifestData}
+                    onTotalPhotosInSolChanged={onTotalPhotosInSolChanged}  />
+        <MissionManifest clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
       </div>
-      <ImageGallery key={selectedRover + selectedSol} selectedRover={selectedRover} selectedSol={selectedSol} />
+      <ImageGallery key={selectedRover + selectedSol} 
+                    selectedRover={selectedRover} 
+                    selectedSol={selectedSol}
+                    totalPhotosInSol={totalPhotosInSol} />
     </div>
   );
 }
