@@ -6,15 +6,19 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useNasaService from '../../services/useNasaService';
 import ImageGallerySkeleton from '../imageGallerySkeleton/ImageGallerySkeleton';
 import Spinner from '../spinner/Spinner';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import SliderModal from '../sliderModal/SliderModal';
 
 const ImageGallery = (props) => {
 
-    const {loading, getImagesData, clearError} = useNasaService();
+    const {loading, getImagesData, clearError, error} = useNasaService();
 
     const [imagesData, setImagesData] = useState([]);
     const [nextPage, setNextPage] = useState(1);
     const [firstLoading, setFirstLoading] = useState(true);
     const [imagesDataLoaded, setImagesDataLoaded] = useState(false);
+    const [itemIndex, setItemIndex] = useState(0);
+    const [sliderOpen, setSliderOpen] = useState(false);
 
     const transitionDuration = 1000;
 
@@ -32,21 +36,35 @@ const ImageGallery = (props) => {
             .then(onImagesDataLoaded);
     }
 
+    const onSliderClosed = () => {
+        setSliderOpen(false);
+    }
+
     useEffect(() => {
         onRequestImages(props.selectedRover, props.selectedSol, nextPage);
         // eslint-disable-next-line
     }, [props.selectedRover, props.selectedSol])
 
+    if (sliderOpen) {
+        document.body.style.overflow = "hidden";
+    } else {
+        document.body.style.overflow = "visible";
+    }
+
 
     function renderItemList(arr) {
-        const itemList = arr.map(item => {
+        const itemList = arr.map((item, i) => {
             return (
                 <CSSTransition
                     key={item.id} 
                     in={imagesDataLoaded}
                     timeout={transitionDuration}
                     classNames='imageGallery__card'>
-                    <li className="imageGallery__card">
+                    <li className="imageGallery__card"
+                        onClick={() => {
+                            setSliderOpen(true);
+                            setItemIndex(i);
+                        }}>
                         <img src={item.path} alt="img from mars"/>
                         <div className="imageGallery__descr">
                             <ul>
@@ -70,8 +88,13 @@ const ImageGallery = (props) => {
     }
 
     const spinner = loading && firstLoading ? <Spinner/> : null;
-    const skeleton = imagesData.length === 0 && firstLoading && !loading ? <ImageGallerySkeleton/> : null;
+    const skeleton = imagesData.length === 0 && firstLoading && !loading && !error ? <ImageGallerySkeleton/> : null;
     const items = renderItemList(imagesData);
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const counter = imagesData.length === 0 || error ? null : 
+    <h2 className="imageGallery__title">
+        Showed {loading ? "..." : imagesData.length} photos of {props.totalPhotosInSol}
+    </h2>
     const button = props.totalPhotosInSol === imagesData.length ? null : 
     <button 
         onClick={() => onRequestImages(props.selectedRover, props.selectedSol, nextPage)} 
@@ -79,10 +102,17 @@ const ImageGallery = (props) => {
         className="imageGallery__btn">{loading  ? "Loading..." : "Load next page" }
     </button>    
 
+    const slider = <SliderModal 
+                    open={sliderOpen} 
+                    items={imagesData} 
+                    slideIndex={itemIndex} 
+                    onSliderClosed={onSliderClosed} />
+
     const wrapStyles = firstLoading && loading ? {"padding": "50px"} : null;
 
     return (
         <section className="imageGallery" style={wrapStyles}>
+            {counter}
             {spinner}
             {skeleton}
             {imagesData.length === 0 && !firstLoading ? 
@@ -90,7 +120,8 @@ const ImageGallery = (props) => {
                 items
             }
             {button}
-           
+            {errorMessage}
+            {slider}
         </section>
     )
 }

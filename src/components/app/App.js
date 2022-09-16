@@ -1,10 +1,12 @@
 import { useState } from 'react';
+
 import '../../styles/style.scss';
 
 import Banner from '../banner/Banner';
 import FilterForm from '../filterForm/FilterForm';
 import ImageGallery from '../imageGallery/ImageGallery';
 import MissionManifest from '../missionManifest/MissionManifest';
+import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 
 function App() {
 
@@ -33,20 +35,28 @@ function App() {
 
   return (
     <div className="App">
-      <Banner/>
+      <ErrorBoundary>
+        <Banner/>
+      </ErrorBoundary>
       <div className="App__wrapper">
-        <FilterForm onRoverSelected={onRoverSelected}
-                    onRoverClicked={onRoverClicked}
-                    onSolSelected={onSolSelected}
-                    maxSol={maxSol}
-                    manifestData={manifestData}
-                    onTotalPhotosInSolChanged={onTotalPhotosInSolChanged}  />
-        <MissionManifest clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
+        <ErrorBoundary>
+          <FilterForm onRoverSelected={onRoverSelected}
+                      onRoverClicked={onRoverClicked}
+                      onSolSelected={onSolSelected}
+                      maxSol={maxSol}
+                      manifestData={manifestData}
+                      onTotalPhotosInSolChanged={onTotalPhotosInSolChanged} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <MissionManifest clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
+        </ErrorBoundary>
       </div>
-      <ImageGallery key={selectedRover + selectedSol} 
-                    selectedRover={selectedRover} 
-                    selectedSol={selectedSol}
-                    totalPhotosInSol={totalPhotosInSol} />
+      <ErrorBoundary>
+        <ImageGallery key={selectedRover + selectedSol} 
+                      selectedRover={selectedRover} 
+                      selectedSol={selectedSol}
+                      totalPhotosInSol={totalPhotosInSol} />
+      </ErrorBoundary>
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import './roverFilter.scss';
 
-import { useState, useEffect } from 'react';
-
-// import useNasaService from '../../services/useNasaService';
+import useNasaService from '../../services/useNasaService';
 
 const RoverFilter = (props) => {
 

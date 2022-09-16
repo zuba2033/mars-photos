@@ -11,6 +11,7 @@ import useNasaService from '../../services/useNasaService';
 import ManifestSkeleton from '../manifestSkeleton/ManifestSkeleton';
 import Spinner from '../spinner/Spinner';
 import RoverPhotoModal from '../roverPhotoModal/RoverPhotoModal';
+import ErrorMessage from '../errorMessage/ErrorMessage';
 
 const MissionManifest = (props) => {
 
@@ -19,7 +20,7 @@ const MissionManifest = (props) => {
     const [manifestDataLoaded, setManifestDataLoaded] = useState(false);
     const [spinnerReady, setSpinnerReady] = useState(true);
 
-    const { loading, getMissionManifest, clearError} = useNasaService();
+    const { loading, getMissionManifest, clearError, error} = useNasaService();
 
     const onManifestDataLoaded = (data) => {
         setManifestData(data);
@@ -68,10 +69,11 @@ const MissionManifest = (props) => {
 
     const duration = 500;
 
-    const skeleton = manifestData || loading ? null : <ManifestSkeleton/>;
+    const skeleton = manifestData || loading || error ? null : <ManifestSkeleton/>;
     const spinner = loading && spinnerReady ? <Spinner/> : null;
     const modal = <RoverPhotoModal open={modalOpen} onModalClose={onModalClose} roverPhoto={roverPhoto} />;
-    const content = 
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const content = error ? null : 
         <CSSTransition 
             in={manifestDataLoaded} 
             classNames="missionManifest"
@@ -97,6 +99,7 @@ const MissionManifest = (props) => {
         <>
             {modal}
             <div className="missionManifest__wrapper" style={wrapStyles}>
+                {errorMessage}
                 {skeleton}
                 {spinner}
                 {content}

@@ -50,7 +50,7 @@ const FilterForm = (props) => {
             <div className="filterForm__wrapper">
                 <RoverFilter onRoverSelected={onRoverSelected} onRoverClicked={props.onRoverClicked}/>
                 <SolFilter selectedRover={selectedRover} maxSol={props.maxSol} onSolSelected={onSolSelected}/>
-                <input type="submit" disabled={!totalPhotosInSol} className="filterForm__btn" value="Show photos"/>
+                <input type="submit" disabled={!totalPhotosInSol || !selectedSol} className="filterForm__btn" value="Show photos"/>
                 {
                 manifestData && (selectedSol > manifestData.maxSol) ? 
                     <div className="filterForm__info"> Choose another sol</div> :
