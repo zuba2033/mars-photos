@@ -73,3 +73,31 @@ p {
         opacity: 1
     }
 }
+
+.show-animation {
+    animation: show-animation 100ms linear 1 forwards;
+}
+
+@keyframes show-animation {
+    0% {
+        filter: brightness(110%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
+}
+
+.hide-animation {
+    animation: hide-animation 100ms linear 1 forwards;
+}
+
+@keyframes hide-animation {
+    0% {
+        filter: brightness(100%);
+
+    }
+    100% {
+        filter: brightness(110%);
+
+    }
+}

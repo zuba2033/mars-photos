@@ -35,14 +35,13 @@
   }
   .roverPhotoModal-enter-active {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity 1000ms, transform 1000ms;
+    transition: opacity 500ms;
   }
   .roverPhotoModal-exit {
     opacity: 1;
   }
   .roverPhotoModal-exit-active {
     opacity: 0;
-    transition: opacity 1000ms, transform 1000s;
+    transition: opacity 500ms;
   }
   

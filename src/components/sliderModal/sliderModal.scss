@@ -12,13 +12,16 @@
     z-index: 1;
     cursor: pointer;
     user-select: none;
-    &__img {
+    &__wrapper {
         position: relative;
-        img {
-            max-width: 800px;
-            max-height: 600px;
-            cursor: default;
-        }
+    }
+    &__img {
+        min-height: 300px;
+        min-width: 300px;
+        max-width: 1100px;
+        max-height: 800px;
+        cursor: default;
+        opacity: 1;
     }
     &__close {
         cursor: pointer;
@@ -36,21 +39,28 @@
         user-select: none;
         color: red;
     }
-    &__leftArrow svg, &__rightArrow svg {
-        width: 50px;
-        height: 50px;
+    &__leftArrow, &__rightArrow {
+        height: 80px;
+        width: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
     }
-    &__leftArrow path, &__rightArrow path {
+    &__svg {
+        width: 50px;
+        height: 50px;
+    }
+    &__svg path {
         fill: red;
     }
-    &__leftArrow svg {
-        left: -70px
+    &__leftArrow  {
+        left: -90px
     }
-    &__rightArrow svg {
-        right: -70px;
+    &__rightArrow {
+        right: -90px;
     }
 }
 
@@ -59,13 +69,13 @@
   }
 .sliderModal-enter-active {
     opacity: 1;
-    transition: opacity 1000ms;
+    transition: opacity 500ms;
   }
 .sliderModal-exit {
     opacity: 1;
   }
 .sliderModal-exit-active {
     opacity: 0;
-    transition: opacity 1000ms;
+    transition: opacity 500ms;
   }
   

@@ -16,6 +16,7 @@ function App() {
   const [maxSol, setMaxSol] = useState('-');
   const [manifestData, setManifestData] = useState(null);
   const [totalPhotosInSol, setTotalPhotosInSol] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const onTotalPhotosInSolChanged = (totalPhotos) => {
     setTotalPhotosInSol(totalPhotos);
@@ -41,6 +42,7 @@ function App() {
       <div className="App__wrapper">
         <ErrorBoundary>
           <FilterForm onRoverSelected={onRoverSelected}
+                      loading={loading}
                       onRoverClicked={onRoverClicked}
                       onSolSelected={onSolSelected}
                       maxSol={maxSol}
@@ -48,7 +50,7 @@ function App() {
                       onTotalPhotosInSolChanged={onTotalPhotosInSolChanged} />
         </ErrorBoundary>
         <ErrorBoundary>
-          <MissionManifest clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
+          <MissionManifest setLoading={setLoading} clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
         </ErrorBoundary>
       </div>
       <ErrorBoundary>

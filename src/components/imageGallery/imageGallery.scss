@@ -31,7 +31,8 @@
         border: 1px solid #000;
         cursor: pointer;
         position: relative;
-        &:hover::before {
+        &::before {
+            opacity: 0;
             content: "Click to open slider";
             display: block;
             position: absolute;
@@ -39,6 +40,10 @@
             left: 10px;
             font-weight: 700;
             font-size: 15px;
+            transition: all 250ms ease;
+        }
+        &:hover::before {
+            opacity: 1;
         }
         img {
             object-fit: cover;

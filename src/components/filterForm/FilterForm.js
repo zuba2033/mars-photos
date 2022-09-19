@@ -48,7 +48,7 @@ const FilterForm = (props) => {
     return (
         <form action="" className="filterForm" onSubmit={onSubmit}>
             <div className="filterForm__wrapper">
-                <RoverFilter onRoverSelected={onRoverSelected} onRoverClicked={props.onRoverClicked}/>
+                <RoverFilter loading={props.loading} onRoverSelected={onRoverSelected} onRoverClicked={props.onRoverClicked}/>
                 <SolFilter selectedRover={selectedRover} maxSol={props.maxSol} onSolSelected={onSolSelected}/>
                 <input type="submit" disabled={!totalPhotosInSol || !selectedSol} className="filterForm__btn" value="Show photos"/>
                 {

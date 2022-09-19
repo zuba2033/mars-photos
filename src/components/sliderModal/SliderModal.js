@@ -8,39 +8,52 @@ const SliderModal = (props) => {
     const items = props.items;
 
     const [slideIndex, setSlideIndex] = useState(props.slideIndex);
+    const [imgClassNames, setImgClassNames] = useState('sliderModal__img')
 
     useEffect(() => {
         setSlideIndex(props.slideIndex);
     }, [props.slideIndex])
+
     
     const changeSlide = (direction = 1) => {
         let slideNumber = 0;
-    
+        
+        setImgClassNames('sliderModal__img hide-animation');
+
+
         if (slideIndex + direction < 0) {
           slideNumber = items.length - 1;
         } else {
           slideNumber = (slideIndex + direction) % items.length;
-          console.log(slideNumber)
         }
+
+        setTimeout(() => {
+            setImgClassNames('sliderModal__img show-animation');
+            setSlideIndex(slideNumber);
+        }, 200);
     
-        setSlideIndex(slideNumber);
+        
       };
 
-    const duration = 1000;
+    const duration = 500;
 
     return (
         <CSSTransition in={props.open} 
                        classNames="sliderModal"
                        unmountOnExit
                        timeout={duration} >
-            <div className="sliderModal">
-                <div className="sliderModal__img">
-                    <img src={items.length !== 0 && slideIndex !== null && slideIndex !== undefined ? items[slideIndex].path : null} alt="marsPhoto" />
+            <div className="sliderModal" onClick={(e) => {
+                if (e.target.classList.contains('sliderModal')) {
+                    props.onSliderClosed();
+                }
+            }}>
+                <div className="sliderModal__wrapper">
+                    <img className={imgClassNames} src={items.length !== 0 && slideIndex !== null && slideIndex !== undefined ? items[slideIndex].path : null} alt="marsPhoto" />
                     <div className="sliderModal__leftArrow" onClick={() => changeSlide(-1)}>
-                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        <svg className="sliderModal__svg" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="454.522px" height="454.522px" viewBox="0 0 454.522 454.522">
                         <g>
-                            <path d="M248.299,399.167c12.354,12.354,12.354,32.391,0,44.744c-12.354,12.365-32.391,12.365-44.75,0L9.259,249.63
+                            <path className="sliderModal__svg" d="M248.299,399.167c12.354,12.354,12.354,32.391,0,44.744c-12.354,12.365-32.391,12.365-44.75,0L9.259,249.63
                                 C3.085,243.453,0,235.355,0,227.258c0-8.095,3.091-16.192,9.259-22.366l194.29-194.284c12.359-12.359,32.396-12.359,44.75,0
                                 c12.354,12.354,12.354,32.388,0,44.748L76.391,227.258L248.299,399.167z M273.349,227.258L445.258,55.355
                                 c12.354-12.359,12.354-32.394,0-44.748c-12.354-12.359-32.392-12.359-44.751,0L206.218,204.892
@@ -50,7 +63,7 @@ const SliderModal = (props) => {
                         </svg>
                     </div>
                     <div className="sliderModal__rightArrow" onClick={() => changeSlide(1)} >
-                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                        <svg className="sliderModal__svg" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="454.52px" height="454.52px" viewBox="0 0 454.52 454.52" >
                         <g>
                             <path d="M378.135,227.256L206.224,55.354c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.388-12.359,44.747,0

@@ -25,10 +25,12 @@ const MissionManifest = (props) => {
     const onManifestDataLoaded = (data) => {
         setManifestData(data);
         props.setManifestData(data);
+        props.setLoading(false)
     }
 
     const onRequestManifest = (rover) => {
         clearError();
+        props.setLoading(true)
         getMissionManifest(rover)
             .then(onManifestDataLoaded);
     }
@@ -67,7 +69,7 @@ const MissionManifest = (props) => {
         roverPhoto = perseveranceImg;
     }
 
-    const duration = 500;
+    const duration = 300;
 
     const skeleton = manifestData || loading || error ? null : <ManifestSkeleton/>;
     const spinner = loading && spinnerReady ? <Spinner/> : null;
@@ -87,7 +89,7 @@ const MissionManifest = (props) => {
                 setModalOpen={setModalOpen} />
         </CSSTransition>;
 
-    const wrapStyles = loading && spinnerReady ? {"display" : "flex", "height": "250px", "justifyContent": "center", "alignItems": "center"} : null;
+    const wrapStyles = loading && spinnerReady ? {"display" : "flex", "height": "300px", "justifyContent": "center", "alignItems": "center"} : null;
 
     if (modalOpen) {
         document.body.style.overflow = "hidden";

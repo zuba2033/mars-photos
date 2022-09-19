@@ -2,7 +2,9 @@ import { useHttp } from "../hooks/http.hook";
 
 const useNasaService = () => {
 
-    const {loading, error, request, clearError} = useHttp();
+    const { loading, error, request, clearError } = useHttp();
+
+    console.log(loading);
  
     const _apiBase = 'https://api.nasa.gov/';
     const _apiKey = 'api_key=IUkW3wtcdwNzddLKDaEgsmyHsA5HkMT1Vi1X92ZL';
