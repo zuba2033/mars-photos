@@ -21,7 +21,7 @@ const SolFilter = (props) => {
 
     const myRef = useRef(null);
 
-    const disabled = props.maxSol >= 1 ? false : true;
+    const disabled = !(props.maxSol >= 1);
 
     return (
         <div className="solFilter">

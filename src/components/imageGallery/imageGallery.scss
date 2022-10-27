@@ -9,8 +9,8 @@
         text-align: center;
         padding: 10px 10px;
         font-weight: 700;
-        font-size: 15px;
-        width: 130px;
+        font-size: 17px;
+        min-width: 150px;
     }
     &__title {
         text-align: center;
@@ -73,7 +73,7 @@
         padding: 10px;
         li {
             margin-top: 3px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
         }
     }

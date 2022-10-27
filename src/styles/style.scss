@@ -1,9 +1,18 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 
+@font-face {
+	font-family: 'GepesteV';
+	font-style: normal;
+	src: local('GepesteV'),
+		url('../font/Gepestev.woff') format('woff'),
+        url('../font/Gepestev.ttf') format('ttf')
+}
+
 
 * {
-    font-family: "Roboto Condensed", sans-serif;
+    font-family: "GepesteV", sans-serif;
+    letter-spacing: .5px;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -75,29 +84,29 @@ p {
 }
 
 .show-animation {
-    animation: show-animation 100ms linear 1 forwards;
+    animation: show-animation 50ms linear 1 forwards;
 }
 
 @keyframes show-animation {
     0% {
-        filter: brightness(110%);
+        opacity : 0.9;
     }
     100% {
-        filter: brightness(100%);
+        opacity: 1;
     }
 }
 
 .hide-animation {
-    animation: hide-animation 100ms linear 1 forwards;
+    animation: hide-animation 50ms linear 1 forwards;
 }
 
 @keyframes hide-animation {
     0% {
-        filter: brightness(100%);
+        opacity: 1;
 
     }
     100% {
-        filter: brightness(110%);
+        opacity : 0.9;
 
     }
 }
