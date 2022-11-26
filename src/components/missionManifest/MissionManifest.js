@@ -83,7 +83,7 @@ const MissionManifest = (props) => {
             timeout={duration}
             onEnter={() => setSpinnerReady(false)}
             onExited={() => setSpinnerReady(true)}>
-            <View loading={loading}
+            <View 
                 roverPhoto={roverPhoto} 
                 manifestData={manifestData} 
                 setModalOpen={setModalOpen} />
@@ -113,22 +113,21 @@ const MissionManifest = (props) => {
 const View = (props) => {
 
     const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifestData;
-    const loading = props.loading;
 
     return (
         <div className="missionManifest">
             <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} >
-                { loading ? null : <img src={props.roverPhoto} alt="" /> }
+                <img src={props.roverPhoto} alt="" />
             </div>
             <ul className="missionManifest__list">
                 <h2>Mission manifest</h2>
-                <li>Name: {loading ? null : name}</li>
-                <li>Landing date: {loading ? null : landingDate}</li>
-                <li>Launch date: {loading ? null : launchDate}</li>
-                <li>Max date: {loading ? null : maxDate}</li>
-                <li>Max sol: {loading ? null : maxSol}</li>
-                <li>Status: {loading ? null : status}</li>
-                <li>Total photos: {loading ? null : totalPhotos}</li>
+                <li>Name: {name}</li>
+                <li>Landing date: {landingDate}</li>
+                <li>Launch date: {launchDate}</li>
+                <li>Max date: {maxDate}</li>
+                <li>Max sol: {maxSol}</li>
+                <li>Status: {status}</li>
+                <li>Total photos: {totalPhotos}</li>
             </ul>
         </div>
     )

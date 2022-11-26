@@ -9,6 +9,7 @@ const useNasaService = () => {
 
     const getMissionManifest = async (rover) => {
         const res = await request(`${_apiBase}mars-photos/api/v1/manifests/${rover}/?${_apiKey}`);
+        console.log(res);
         return _transformManifestData(res.photo_manifest);
     }
 

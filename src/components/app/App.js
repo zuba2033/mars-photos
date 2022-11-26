@@ -50,7 +50,10 @@ function App() {
                       onTotalPhotosInSolChanged={onTotalPhotosInSolChanged} />
         </ErrorBoundary>
         <ErrorBoundary>
-          <MissionManifest setLoading={setLoading} clickedRover={clickedRover} setMaxSol={setMaxSol} setManifestData={setManifestData}/>
+          <MissionManifest setLoading={setLoading} 
+                          clickedRover={clickedRover} 
+                          setMaxSol={setMaxSol} 
+                          setManifestData={setManifestData}/>
         </ErrorBoundary>
       </div>
       <ErrorBoundary>
