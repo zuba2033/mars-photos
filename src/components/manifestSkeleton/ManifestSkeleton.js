@@ -2,17 +2,17 @@ import './manifestSkeleton.scss';
 
 const ManifestSkeleton = () => {
     return (
-        <div className="pulse manifestSkeleton">
-            <div className="pulse img-block"></div>
-            <ul className="pulse list-block">
-                <div className="pulse list-title-block"></div>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
-                <li className='pulse' ></li>
+        <div className=" manifestSkeleton">
+            <div className=" img-block"></div>
+            <ul className=" list-block">
+                <div className=" list-title-block"></div>
+                <li className='' ></li>
+                <li className='' ></li>
+                <li className='' ></li>
+                <li className='' ></li>
+                <li className='' ></li>
+                <li className='' ></li>
+                <li className='' ></li>
             </ul>
         </div>
     )

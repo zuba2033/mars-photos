@@ -1,5 +1,7 @@
+@import '../../styles/variables.scss';
+
 .roverFilter {
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    background-color: $blocks-color;
     width: 470px;
     padding: 20px;
     font-size: 16px;
@@ -9,7 +11,7 @@
         justify-content: space-between;
         label {
             font-size: 18px;
-            font-weight: 500;
+            font-weight: 700;
         }
         input {
             margin-left: -10px;

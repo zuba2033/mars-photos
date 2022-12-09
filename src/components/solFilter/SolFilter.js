@@ -1,10 +1,21 @@
 import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { solFilterChanged } from '../../slices/formSlice';
+import { selectedSolInfoSelector } from '../../slices/manifestSlice';
+
 import './solFilter.scss';
 
-const SolFilter = (props) => {
+const SolFilter = () => {
+
+    const dispatch = useDispatch();
+
+    const { selectedRover, selectedSol } = useSelector(state => state.form);
+    const { totalPhotosInSol } = useSelector(selectedSolInfoSelector);
+    const { maxSol } = useSelector(state => state.manifest[selectedRover] || state.manifest );
+    const { manifestLoadingStatus } = useSelector(state => state.manifest);
 
     const onInputChange = (e) => {
-        props.onSolSelected(e.target.value);
+        dispatch(solFilterChanged(+e.target.value));
     }
 
     const getRandomIntInclusive = (min, max) => {
@@ -14,33 +25,41 @@ const SolFilter = (props) => {
     }
 
     const onRandomBtnClick = () => {
-        const randomInt = getRandomIntInclusive(1, props.maxSol);
-        props.onSolSelected(randomInt);
-        myRef.current.value = randomInt;
+        const randomInt = getRandomIntInclusive(1, maxSol);
+        dispatch(solFilterChanged(randomInt));
+        inputRef.current.value = randomInt;
     }
 
-    const myRef = useRef(null);
+    const inputRef = useRef(null);
 
-    const disabled = !(props.maxSol >= 1);
+    const disabled = !(maxSol >= 1);
+
+    const titleClassList = !selectedSol && selectedRover ? 'solFilter__title translate' : 'solFilter__title';
 
     return (
         <div className="solFilter">
-            <h2 className="solFilter__title">Select sol</h2>
-            <label htmlFor="solFilter__input">Enter the integer from 1 to {props.maxSol}</label>
+            <h2 className={titleClassList}>Select sol</h2>
+            <label htmlFor="solFilter__input">Enter the integer from 1 to {maxSol ? maxSol : '-'}</label>
             <input type="number"
                    min={1} 
-                   max={props.maxSol} 
+                   max={maxSol} 
                    step={1}
                    id='solFilter__input' 
                    className='solFilter__input'
                    onChange={onInputChange}
                    disabled={disabled}
-                   ref={myRef}
+                   ref={inputRef}
                    />
             <button type="button" 
                     disabled={disabled}  
-                    className="solFilter__btn"
+                    className="button solFilter__btn"
                     onClick={onRandomBtnClick}>Random</button>
+            {selectedSol && manifestLoadingStatus !== "loading" ? 
+                <h3>{maxSol && selectedSol > maxSol ? 
+                        "choose another sol" : 
+                        `found ${totalPhotosInSol === 0 ? 0 : totalPhotosInSol} photos`}
+                </h3> : 
+                null}
         </div>
     )
 }

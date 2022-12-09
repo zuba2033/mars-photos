@@ -14,12 +14,20 @@ const SliderModal = (props) => {
         setSlideIndex(props.slideIndex);
     }, [props.slideIndex])
 
-    
-    const changeSlide = (direction = 1) => {
-        let slideNumber = 0;
-        
-        setImgClassNames('sliderModal__img hide-animation');
+    const onSliderClosed = () => {
+        setImgClassNames('sliderModal__img');
+        props.onSliderClosed();
+    }
 
+    const changeSlide = (direction = 1) => {
+
+        let slideNumber = 0;
+
+        if (direction > 0) {
+            setImgClassNames('sliderModal__img hide-animation-right');
+        } else {
+            setImgClassNames('sliderModal__img hide-animation-left');
+        }
 
         if (slideIndex + direction < 0) {
           slideNumber = items.length - 1;
@@ -28,11 +36,14 @@ const SliderModal = (props) => {
         }
 
         setTimeout(() => {
-            setImgClassNames('sliderModal__img show-animation');
+            if (direction > 0) {
+                setImgClassNames('sliderModal__img show-animation-right');
+            } else {
+                setImgClassNames('sliderModal__img show-animation-left');
+            }
             setSlideIndex(slideNumber);
-        }, 200);
-    
-        
+        }, 150);
+      
       };
 
     const duration = 500;
@@ -44,11 +55,11 @@ const SliderModal = (props) => {
                        timeout={duration} >
             <div className="sliderModal" onClick={(e) => {
                 if (e.target.classList.contains('sliderModal')) {
-                    props.onSliderClosed();
+                    onSliderClosed();
                 }
             }}>
                 <div className="sliderModal__wrapper">
-                    <img className={imgClassNames} src={items.length !== 0 && slideIndex !== null && slideIndex !== undefined ? items[slideIndex].path : null} alt="marsPhoto" />
+                    <img className={imgClassNames} src={items.length !== 0 ? items[slideIndex].path : null} alt="marsPhoto" />
                     <div className="sliderModal__leftArrow" onClick={() => changeSlide(-1)}>
                         <svg className="sliderModal__svg" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="454.522px" height="454.522px" viewBox="0 0 454.522 454.522">
@@ -75,7 +86,7 @@ const SliderModal = (props) => {
                         </g>
                         </svg>
                     </div>
-                    <div className="sliderModal__close" onClick={props.onSliderClosed}>X</div>
+                    <div className="sliderModal__close" onClick={onSliderClosed}>X</div>
                     <div className="sliderModal__counter">
                         {slideIndex + 1} / {items.length}
                     </div>

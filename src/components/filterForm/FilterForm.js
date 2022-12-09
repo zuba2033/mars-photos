@@ -1,63 +1,45 @@
 import './filterForm.scss';
 
-import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { pageReset } from '../../slices/imageGallerySlice';
+import { selectedSolInfoSelector } from '../../slices/manifestSlice';
+import { solFilterSubmited, roverFilterSubmited } from '../../slices/formSlice';
+
 
 import RoverFilter from "../roverFilter/RoverFilter";
 import SolFilter from "../solFilter/SolFilter";
+import FilterFormInfo from './FilterFormInfo';
 
-const FilterForm = (props) => {
 
-    const [selectedRover, setSelectedRover] = useState(null);
-    const [selectedSol, setSelectedSol] = useState(null);
-    const [totalPhotosInSol, setTotalPhotosInSol] = useState("-");
-    const [earthDateOfPhoto, setEarthDateOfPhoto] = useState("-");
+const FilterForm = () => {
 
-    const manifestData = props.manifestData;
+    const { selectedRover, selectedSol, submitedRover, submitedSol } = useSelector(state => state.form);
+    const { totalPhotosInSol } = useSelector(selectedSolInfoSelector);
 
-    const onRoverSelected = (rover) => {
-        setSelectedRover(rover);
-    }
-
-    const onSolSelected = (sol) => {
-        setSelectedSol(sol);
-    }
+    const dispatch = useDispatch();
 
     const onSubmit = (e) => {
         e.preventDefault();
-        props.onTotalPhotosInSolChanged(totalPhotosInSol);
-        props.onRoverSelected(selectedRover);
-        props.onSolSelected(selectedSol);
+        if (submitedRover === selectedRover && submitedSol === selectedSol) return;
+        dispatch(solFilterSubmited(selectedSol));
+        dispatch(roverFilterSubmited(selectedRover));
+        dispatch(pageReset());
+        // eslint-disable-next-line
     }
-    
-    useEffect(() => {
-        if (!manifestData || !selectedSol || selectedSol === "") {
-            return;
-        }
-        const solData = manifestData.photos?.filter(item => {
-            return item.sol === +selectedSol;
-        })[0];
-        if (!solData || solData.length === 0) {
-            setTotalPhotosInSol(0);
-        } else {
-            setTotalPhotosInSol(solData.total_photos);
-            setEarthDateOfPhoto(solData.earth_date);
-        }
 
-    }, [manifestData, selectedSol]);
+    const disabled = !selectedSol || !totalPhotosInSol;
+
+    const btnClassNames = selectedRover && selectedSol && !submitedRover ? "button filterForm__btn translate" : "button filterForm__btn" 
 
     return (
         <form action="" className="filterForm" onSubmit={onSubmit}>
             <div className="filterForm__wrapper">
-                <RoverFilter loading={props.loading} onRoverSelected={onRoverSelected} onRoverClicked={props.onRoverClicked}/>
-                <SolFilter selectedRover={selectedRover} maxSol={props.maxSol} onSolSelected={onSolSelected}/>
-                <input type="submit" disabled={!totalPhotosInSol || !selectedSol} className="filterForm__btn" value="Show photos"/>
-                {
-                manifestData && (selectedSol > manifestData.maxSol) ? 
-                    <div className="filterForm__info"> Choose another sol</div> :
-                    <div className="filterForm__info">
-                        Found {totalPhotosInSol} photo for sol {selectedSol ? selectedSol : "-"} <br /> Earth date: {earthDateOfPhoto}
-                    </div>
-                }
+                <RoverFilter/>
+                <SolFilter/>
+                <div className="filterForm__bottom-wrapper">
+                    <input type="submit" disabled={disabled} className={btnClassNames} value="Show photos"/>
+                    <FilterFormInfo/>
+                </div>
             </div>
         </form>
     )

@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import './variables.scss';
 
 @font-face {
 	font-family: 'GepesteV';
@@ -8,7 +7,6 @@
 		url('../font/Gepestev.woff') format('woff'),
         url('../font/Gepestev.ttf') format('ttf')
 }
-
 
 * {
     font-family: "GepesteV", sans-serif;
@@ -50,20 +48,31 @@ p {
     padding: 0;
 }
 
-// input::-webkit-outer-spin-button,
-// input::-webkit-inner-spin-button {
-//     -webkit-appearance: none;
-//     margin: 0; 
-// }
-
+.button {
+    color: #fff;
+    background-color: $btn-color;
+    text-align: center;
+    font-weight: 700;
+    font-size: 17px;
+    border: 1px solid white;
+    cursor: pointer;
+    &:disabled {
+        background-color: $btn-disabled;
+        color: rgba(255, 255, 255, 0.5);
+        border: 1px solid $btn-color;
+    }
+}
 
 .App {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 0 auto;
+    padding: 0 20px;
+    margin-top: 20px;
+    color: #fff;
     &__wrapper {
         padding-top: 20px;
         display: grid;
-        grid-template-columns: 45% 55%;
+        grid-template-columns: 44% 56%;
     }
 }
 
@@ -83,30 +92,71 @@ p {
     }
 }
 
-.show-animation {
-    animation: show-animation 50ms linear 1 forwards;
+.translate {
+    animation: translate 1.5s ease-in-out .5s infinite;
 }
 
-@keyframes show-animation {
+@keyframes translate {
     0% {
-        opacity : 0.9;
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
     }
     100% {
-        opacity: 1;
+        transform: translateY(0px);
     }
 }
 
-.hide-animation {
-    animation: hide-animation 50ms linear 1 forwards;
+.show-animation-right {
+    animation: show-animation-right 250ms linear 1 forwards;
 }
 
-@keyframes hide-animation {
+@keyframes show-animation-right {
     0% {
-        opacity: 1;
-
+        transform: translateX(300vh);
     }
     100% {
-        opacity : 0.9;
+        transform: translateX(0);
+    }
+}
 
+.hide-animation-right {
+    animation: hide-animation-right 250ms linear 1 forwards;
+}
+
+@keyframes hide-animation-right {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-300vh);
+    }
+}
+
+
+.show-animation-left {
+    animation: show-animation-left 250ms linear 1 forwards;
+}
+
+@keyframes show-animation-left {
+    0% {
+        transform: translateX(-300vh);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.hide-animation-left {
+    animation: hide-animation-left 250ms linear 1 forwards;
+}
+
+@keyframes hide-animation-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(300vh);
     }
 }

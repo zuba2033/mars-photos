@@ -1,24 +1,35 @@
 import './roverFilter.scss';
 
-const RoverFilter = (props) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { roverFilterChanged } from '../../slices/formSlice';
+
+const RoverFilter = () => {
+
+    const dispatch = useDispatch();
+
+    const manifest = useSelector(state => state.manifest);
+    const { selectedRover } = useSelector(state => state.form);
+
+    const disabled = manifest.manifestLoadingStatus === "loading"
 
     const onRadioChange = (e) => {
-        props.onRoverSelected(e.target.value);
-        props.onRoverClicked(e.target.value);
+        dispatch(roverFilterChanged(e.target.value));
     }
+
+    const titleClassList = selectedRover ? 'roverFilter__title' : 'roverFilter__title translate';
 
     return (
         <div className="roverFilter" >
-            <h2 className="roverFilter__title">Select rover</h2>
+            <h2 className={titleClassList}>Select rover</h2>
             <div className="roverFilter__inputs">
                 <label htmlFor="curiosity">Curiosity</label>
-                <input disabled={props.loading} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
+                <input disabled={disabled} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
                 <label htmlFor="opportunity">Opportunity</label>
-                <input disabled={props.loading} type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
+                <input disabled={disabled} type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
                 <label htmlFor="spirit">Spirit</label>
-                <input disabled={props.loading} type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
+                <input disabled={disabled} type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
                 <label htmlFor="perseverance">Perseverance</label>
-                <input disabled={props.loading} type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
+                <input disabled={disabled} type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
             </div>
         </div>
     )
