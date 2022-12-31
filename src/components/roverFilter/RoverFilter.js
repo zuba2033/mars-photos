@@ -22,14 +22,22 @@ const RoverFilter = () => {
         <div className="roverFilter" >
             <h2 className={titleClassList}>Select rover</h2>
             <div className="roverFilter__inputs">
-                <label htmlFor="curiosity">Curiosity</label>
-                <input disabled={disabled} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
-                <label htmlFor="opportunity">Opportunity</label>
-                <input disabled={disabled} type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
-                <label htmlFor="spirit">Spirit</label>
-                <input disabled={disabled} type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
-                <label htmlFor="perseverance">Perseverance</label>
-                <input disabled={disabled} type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
+                <div className="roverFilter__input">
+                    <label htmlFor="curiosity">Curiosity</label>
+                    <input disabled={disabled} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
+                </div>
+                <div className="roverFilter__input">
+                    <label htmlFor="opportunity">Opportunity</label>
+                    <input disabled={disabled} type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
+                </div>
+                <div className="roverFilter__input">
+                    <label htmlFor="spirit">Spirit</label>
+                    <input disabled={disabled} type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
+                </div>
+                <div className="roverFilter__input">
+                    <label htmlFor="perseverance">Perseverance</label>
+                    <input disabled={disabled} type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
+                </div>
             </div>
         </div>
     )

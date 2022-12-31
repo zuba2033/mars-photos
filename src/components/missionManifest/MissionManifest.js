@@ -59,9 +59,9 @@ const MissionManifest = () => {
         else if (manifestLoadingStatus === 'idle' && !manifest) return <ManifestSkeleton/>
         else if (manifestLoadingStatus === 'error') return <ErrorMessage/>
         else if (manifest) return <View 
-                                                    roverPhoto={roverPhoto} 
-                                                    manifest={manifest} 
-                                                    setModalOpen={setModalOpen} />
+                                    roverPhoto={roverPhoto} 
+                                    manifest={manifest} 
+                                    setModalOpen={setModalOpen} />
     }
 
 
@@ -77,7 +77,7 @@ const MissionManifest = () => {
 
 const View = (props) => {
 
-    const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifest
+    const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifest;
 
     return (
         <div className="missionManifest">

@@ -10,7 +10,7 @@
 
 * {
     font-family: "GepesteV", sans-serif;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -67,12 +67,44 @@ p {
     max-width: 1150px;
     margin: 0 auto;
     padding: 0 20px;
-    margin-top: 20px;
     color: #fff;
     &__wrapper {
         padding-top: 20px;
         display: grid;
         grid-template-columns: 44% 56%;
+    }
+}
+
+
+@media ( max-width:1200px ) {
+    .App {
+        &__wrapper {
+            display: flex;
+            justify-content: center;
+            column-gap: 20px;
+        }
+    }
+}
+
+@media ( max-width:990px ) {
+    .App {
+        padding: 0 30px;
+        &__wrapper {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(354px, auto));
+            padding-top: 20px;
+            column-gap: 10px;
+        }
+    }
+}
+
+@media ( max-width:767px ) {
+    .App {
+        letter-spacing: 1px;
+        &__wrapper {
+            display: flex;
+            flex-direction: column-reverse;
+        }
     }
 }
 

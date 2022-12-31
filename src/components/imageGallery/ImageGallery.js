@@ -91,7 +91,7 @@ const ImageGallery = () => {
                 dispatch(fetchImages({submitedRover, submitedSol, page}));
             }}
             disabled={imagesLoadingStatus === 'loading'}
-            className="imageGallery__btn">{imagesLoadingStatus === 'loading'  ? "Loading..." : "Load next page" }
+            className="button imageGallery__btn">{imagesLoadingStatus === 'loading'  ? "Loading..." : "Load next page" }
         </button>    
 
     const slider = <SliderModal 

@@ -37,7 +37,7 @@ const FilterForm = () => {
                 <RoverFilter/>
                 <SolFilter/>
                 <div className="filterForm__bottom-wrapper">
-                    <input type="submit" disabled={disabled} className={btnClassNames} value="Show photos"/>
+                    <button type="submit" disabled={disabled} className={btnClassNames}>Show photos</button>
                     <FilterFormInfo/>
                 </div>
             </div>

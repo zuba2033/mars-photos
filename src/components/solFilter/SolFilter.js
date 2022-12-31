@@ -40,26 +40,29 @@ const SolFilter = () => {
         <div className="solFilter">
             <h2 className={titleClassList}>Select sol</h2>
             <label htmlFor="solFilter__input">Enter the integer from 1 to {maxSol ? maxSol : '-'}</label>
-            <input type="number"
-                   min={1} 
-                   max={maxSol} 
-                   step={1}
-                   id='solFilter__input' 
-                   className='solFilter__input'
-                   onChange={onInputChange}
-                   disabled={disabled}
-                   ref={inputRef}
-                   />
-            <button type="button" 
-                    disabled={disabled}  
-                    className="button solFilter__btn"
-                    onClick={onRandomBtnClick}>Random</button>
-            {selectedSol && manifestLoadingStatus !== "loading" ? 
-                <h3>{maxSol && selectedSol > maxSol ? 
-                        "choose another sol" : 
-                        `found ${totalPhotosInSol === 0 ? 0 : totalPhotosInSol} photos`}
-                </h3> : 
-                null}
+            <div className="solFilter__bottomWrapper">
+                <input type="number"
+                    min={1} 
+                    max={maxSol} 
+                    step={1}
+                    id='solFilter__input' 
+                    className='solFilter__input'
+                    onChange={onInputChange}
+                    disabled={disabled}
+                    ref={inputRef}
+                    />
+                <button type="button" 
+                        disabled={disabled}  
+                        className="button solFilter__btn"
+                        onClick={onRandomBtnClick}>Random</button>
+                {selectedSol && manifestLoadingStatus !== "loading" ? 
+                    <h3>{maxSol && selectedSol > maxSol ? 
+                            "choose another sol" : 
+                            `found ${totalPhotosInSol === 0 ? 0 : totalPhotosInSol} photos`}
+                    </h3> : 
+                    null}
+            </div>
+            
         </div>
     )
 }
