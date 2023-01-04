@@ -8,11 +8,16 @@ const SliderModal = (props) => {
     const items = props.items;
 
     const [slideIndex, setSlideIndex] = useState(props.slideIndex);
-    const [imgClassNames, setImgClassNames] = useState('sliderModal__img')
+    const [imgClassNames, setImgClassNames] = useState('sliderModal__img');
 
     useEffect(() => {
         setSlideIndex(props.slideIndex);
     }, [props.slideIndex])
+
+    useEffect(() => {
+        swipe();
+        // eslint-disable-next-line 
+    }, []);
 
     const onSliderClosed = () => {
         setImgClassNames('sliderModal__img');
@@ -45,6 +50,35 @@ const SliderModal = (props) => {
         }, 150);
       
       };
+
+    const swipe = () => {
+        let x1;
+        let x2;
+        let y1;
+        let y2;
+        document.addEventListener('touchstart', (e) => {
+            console.log(e);
+            x1 = e.touches[0].clientX;
+            y1 = e.touches[0].clientY;
+        })
+        document.addEventListener('touchend', (e) => {
+            console.log(e);
+            x2 = e.changedTouches[0].clientX;
+            y2 = e.changedTouches[0].clientY;
+            let deffX = x1 - x2;
+            let deffY = y1 - y2;
+            console.log(deffX, deffY)
+
+            if (deffX < 0 && Math.abs(deffX) > 100) {
+                changeSlide(-1);
+            } 
+            if (deffX > 0 && Math.abs(deffX) > 100) {
+                changeSlide(1);
+            }
+        })
+    }
+
+
 
     const duration = 500;
 
