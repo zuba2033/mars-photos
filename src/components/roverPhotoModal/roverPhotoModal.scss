@@ -20,13 +20,14 @@
         }
     }
     &__close {
-        cursor: pointer;
-        position: absolute;
-        top: 0 ;
-        right: -20px;
-        font-weight: 700;
-        font-size: 25px;
-        color: red;
+      cursor: pointer;
+      user-select: none;
+      position: absolute;
+      top: 0 ;
+      right: -25px;
+      font-weight: 700;
+      font-size: 25px;
+      color: #fff;
     }
 }
 

@@ -1,7 +1,7 @@
 @import '../../styles/variables.scss';
 
 .imageGallerySkeleton {
-    margin-top: 20px;
+    margin-top: 10px;
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(5, 1fr);
@@ -47,6 +47,8 @@
 
 @media ( max-width:767px ) {
     .imageGallerySkeleton {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         &__card {
             width: 150px;
             height: 250px;
@@ -58,3 +60,19 @@
         }
     }
 }
+
+@media ( max-width:565px ) {
+    .imageGallerySkeleton {
+        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media ( max-width:319px ) {
+    .imageGallerySkeleton {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+

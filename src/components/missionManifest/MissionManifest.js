@@ -1,11 +1,13 @@
 import './missionManifest.scss';
 
 import curiosityImg from '../../images/curiosity.jpg';
-import spiritAndOpportunityImg from '../../images/opportunity.jpg';
+import opportunityImg from '../../images/Opportunity_rover.jpg';
+import spiritImg from '../../images/Spirit_rover.jpg';
 import perseveranceImg from '../../images/perseverance.jpg';
 
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 
 import { fetchManifest } from '../../slices/manifestSlice';
 
@@ -36,8 +38,10 @@ const MissionManifest = () => {
 
 
     let roverPhoto;
-    if (selectedRover === 'spirit' || selectedRover === "opportunity") {
-        roverPhoto = spiritAndOpportunityImg;
+    if (selectedRover === 'spirit') {
+        roverPhoto = spiritImg;
+    } else if (selectedRover === "opportunity") {
+        roverPhoto = opportunityImg;
     } else if (selectedRover === 'curiosity') {
         roverPhoto = curiosityImg;
     } else if (selectedRover === "perseverance") {
@@ -45,8 +49,6 @@ const MissionManifest = () => {
     }
 
     const modal = <RoverPhotoModal open={modalOpen} onModalClose={onModalClose} roverPhoto={roverPhoto} />;
-
-    const wrapStyles = manifestLoadingStatus === 'loading' ? {"display" : "flex", "height": "300px", "justifyContent": "center", "alignItems": "center"} : null;
 
     if (modalOpen) {
         document.body.style.overflow = "hidden";
@@ -68,7 +70,7 @@ const MissionManifest = () => {
     return (
         <>
             {modal}
-            <div className="missionManifest__wrapper" style={wrapStyles}>
+            <div className="missionManifest__wrapper" >
                 {render()}
             </div>
         </>
@@ -80,21 +82,28 @@ const View = (props) => {
     const { landingDate, launchDate, maxDate, maxSol, name, status, totalPhotos } = props.manifest;
 
     return (
-        <div className="missionManifest">
-            <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} >
-                <img src={props.roverPhoto} alt="" />
-            </div>
-            <ul className="missionManifest__list">
-                <h2>Mission manifest</h2>
-                <li>Name: {name}</li>
-                <li>Landing date: {landingDate}</li>
-                <li>Launch date: {launchDate}</li>
-                <li>Max date: {maxDate}</li>
-                <li>Max sol: {maxSol}</li>
-                <li>Status: {status}</li>
-                <li>Total photos: {totalPhotos}</li>
-            </ul>
-        </div>
+        <CSSTransition
+            in={true}
+            appear={true}
+            key={name} 
+            timeout={500}
+            classNames='missionManifest'>
+            <div className="missionManifest">
+                <div className="missionManifest__img" onClick={() => {props.setModalOpen(true)}} >
+                    <img src={props.roverPhoto} alt="" />
+                </div>
+                <ul className="missionManifest__list">
+                    <h2>Mission manifest</h2>
+                    <li>Name: {name}</li>
+                    <li>Landing date: {landingDate}</li>
+                    <li>Launch date: {launchDate}</li>
+                    <li>Max date: {maxDate}</li>
+                    <li>Max sol: {maxSol}</li>
+                    <li>Status: {status}</li>
+                    <li>Total photos: {totalPhotos}</li>
+                </ul>
+            </div>            
+        </CSSTransition>
     )
 
 }

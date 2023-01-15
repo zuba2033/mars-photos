@@ -18,7 +18,7 @@ const RoverPhotoModal = (props) => {
             }}>
                 <div className="roverPhotoModal__img">
                     <img src={props.roverPhoto} alt="rover" />
-                    <div className="roverPhotoModal__close" onClick={props.onModalClose}>X</div>
+                    <div className="roverPhotoModal__close" onClick={props.onModalClose}>&#10006;</div>
                 </div>
             </div>
         </CSSTransition>

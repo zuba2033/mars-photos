@@ -11,7 +11,7 @@ import { submitedSolInfoSelector } from '../../slices/manifestSlice';
 import ImageGallerySkeleton from '../imageGallerySkeleton/ImageGallerySkeleton';
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import SliderModal from '../sliderModal/SliderModal';
+import SwiperSlider  from '../swiperSlider/SwiperSlider';
 
 const ImageGallery = () => {
 
@@ -44,12 +44,35 @@ const ImageGallery = () => {
         document.body.style.overflow = "visible";
     }
 
+    const counter = images.length === 0 ? null : 
+        <h2 className="imageGallery__title">
+            {imagesLoadingStatus === 'loading' ? "Loading..." : `Showed ${images.length} photos of ${totalPhotosInSol}`}
+        </h2>
+
+    const button = totalPhotosInSol === images.length ? null : 
+        <button 
+            onClick={() => {
+                dispatch(fetchImages({submitedRover, submitedSol, page}));
+            }}
+            disabled={imagesLoadingStatus === 'loading'}
+            className="button imageGallery__btn">{imagesLoadingStatus === 'loading'  ? "Loading..." : "Load next page" }
+        </button>    
+
+    const slider = <SwiperSlider
+                    open={sliderOpen}
+                    items={images} 
+                    slideIndex={itemIndex} 
+                    onSliderClosed={onSliderClosed}/>;
+
+    const wrapStyles = images.length === 0 && imagesLoadingStatus === 'loading' ? {"padding": "50px"} : null;
+
     const transitionDuration = 1000;
 
-    function renderItemList(arr) {
+    const renderItemList = (arr) => {
         const itemList = arr.map((item, i) => {
             return (
                 <CSSTransition
+                    appear={true}
                     key={item.id} 
                     timeout={transitionDuration}
                     classNames='imageGallery__card'>
@@ -72,35 +95,16 @@ const ImageGallery = () => {
             )
         })
         return (
-            <ul className="imageGallery__list">
-                <TransitionGroup component={null}>
+            <>
+                {counter}
+                <TransitionGroup component='ul' className="imageGallery__list">
                     {itemList}
                 </TransitionGroup>
-            </ul>
+                {button}
+                {slider}
+            </>
         )
     }
-
-    const counter = images.length === 0 ? null : 
-        <h2 className="imageGallery__title">
-            {imagesLoadingStatus === 'loading' ? "Loading..." : `Showed ${images.length} photos of ${totalPhotosInSol}`}
-        </h2>
-
-    const button = totalPhotosInSol === images.length ? null : 
-        <button 
-            onClick={() => {
-                dispatch(fetchImages({submitedRover, submitedSol, page}));
-            }}
-            disabled={imagesLoadingStatus === 'loading'}
-            className="button imageGallery__btn">{imagesLoadingStatus === 'loading'  ? "Loading..." : "Load next page" }
-        </button>    
-
-    const slider = <SliderModal 
-                    open={sliderOpen} 
-                    items={images} 
-                    slideIndex={itemIndex} 
-                    onSliderClosed={onSliderClosed} />
-
-    const wrapStyles = images.length === 0 && imagesLoadingStatus === 'loading' ? {"padding": "50px"} : null;
 
     const render = () => {
         if (imagesLoadingStatus === 'idle' && images.length === 0) return <ImageGallerySkeleton/>
@@ -111,10 +115,7 @@ const ImageGallery = () => {
 
     return (
         <section className="imageGallery" style={wrapStyles}>
-            {counter}
             {render()}
-            {button}
-            {slider}
         </section>
     )
 }

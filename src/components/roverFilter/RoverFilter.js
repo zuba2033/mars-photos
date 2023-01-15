@@ -20,24 +20,24 @@ const RoverFilter = () => {
 
     return (
         <div className="roverFilter" >
-            <h2 className={titleClassList}>Select rover</h2>
+            <h2 className={titleClassList}><span>Select rover</span></h2>
             <div className="roverFilter__inputs">
-                <div className="roverFilter__input">
-                    <label htmlFor="curiosity">Curiosity</label>
+                <label className="roverFilter__input">
                     <input disabled={disabled} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>
-                </div>
-                <div className="roverFilter__input">
-                    <label htmlFor="opportunity">Opportunity</label>
+                    <span htmlFor="curiosity">Curiosity</span>
+                </label>
+                <label  className="roverFilter__input">
                     <input disabled={disabled} type="radio" name="rover-choise" id="opportunity" value="opportunity" onChange={onRadioChange}/>
-                </div>
-                <div className="roverFilter__input">
-                    <label htmlFor="spirit">Spirit</label>
+                    <span>Opportunity</span>
+                </label>
+                <label className="roverFilter__input">
                     <input disabled={disabled} type="radio" name="rover-choise" id="spirit" value="spirit" onChange={onRadioChange}/>
-                </div>
-                <div className="roverFilter__input">
-                    <label htmlFor="perseverance">Perseverance</label>
+                    <span>Spirit</span>
+                </label>
+                <label className="roverFilter__input">
                     <input disabled={disabled} type="radio" name="rover-choise" id="perseverance" value="perseverance" onChange={onRadioChange}/>
-                </div>
+                    <span >Perseverance</span>
+                </label>
             </div>
         </div>
     )

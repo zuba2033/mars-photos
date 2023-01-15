@@ -1,11 +1,13 @@
 @import '../../styles/variables.scss';
 
+
 .missionManifest {
     display: flex;
     column-gap: 25px;
-    padding: 23px 20px;
+    padding: 20px 20px;
     box-shadow: 0px 0px 20px rgb(0 0 0 / 25%);
     background-color: $blocks-color;
+    min-height: 100%;
     &__img  {
         width: 300px;
         height: 300px;
@@ -31,33 +33,28 @@
     }
 }
 
-.missionManifest-enter {
+.missionManifest-appear {
     opacity: 0;
 }
-.missionManifest-enter-active {
+.missionManifest-appear-active {
     opacity: 1;
-    transition: opacity 300ms;
-}
-.missionManifest-exit {
-    opacity: 1;
-}
-.missionManifest-exit-active {
-    opacity: 0;
-    transition: opacity 300ms;
+    transition: opacity 500ms;
 }
 
 @media ( max-width:1200px ) {
     .missionManifest {
         width: 400px;
-        min-height: 346px;
+        min-height: 100%;
+        justify-content: center;
+        align-items: center;
         &__img {
             display: none;
         }
         &__list { 
             margin-left: 20px;
             li {
-                margin-top: 12px;
-                font-size: 19px;
+                margin-top: 5px;
+                font-size: 18px;
             }
         }
     }
@@ -69,15 +66,9 @@
     }
     .missionManifest {
         width: 100%;
-        min-height: 373px;
-        padding: 20px;
         &__list {
             margin-left: 10px;
-            h2 {
-                margin-bottom: 30px;
-            }
             li {
-                margin-top: 8px;
                 font-size: 18px;
             }
         }
@@ -87,16 +78,22 @@
 
 @media ( max-width:767px ) {
     .missionManifest {
-        margin-bottom: 20px;
-        min-height: auto;
-        justify-content: center;
+        min-height: 100%;
         &__list {
             h2 {
                 margin-bottom: 10px;
             }
             li {
-                margin-top: 5px;
+                font-size: 16px;
+                margin-top: 7px;
             }
         }
     }
+}
+
+@media ( max-width:565px ) {
+    .missionManifest__wrapper {
+        margin-bottom: 20px;;
+    }
+
 }

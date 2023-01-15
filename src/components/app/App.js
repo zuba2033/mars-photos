@@ -9,19 +9,19 @@ import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 function App() {
 
   return (
-    <div className="App">
-      <section className="App__wrapper">
+    <main className="App">
+      <div className="App__wrapper">
         <ErrorBoundary>
           <FilterForm/>
         </ErrorBoundary>
         <ErrorBoundary>
           <MissionManifest/>
         </ErrorBoundary>
-      </section>
+      </div>
       <ErrorBoundary>
         <ImageGallery/>
       </ErrorBoundary>
-    </div>
+    </main>
   );
 }
 

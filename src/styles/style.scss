@@ -13,7 +13,12 @@
     letter-spacing: 0.5px;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+	box-sizing: border-box;
 }
 
 ul,
@@ -54,7 +59,7 @@ p {
     text-align: center;
     font-weight: 700;
     font-size: 17px;
-    border: 1px solid white;
+    border: 2px solid white;
     cursor: pointer;
     &:disabled {
         background-color: $btn-disabled;
@@ -101,6 +106,15 @@ p {
 @media ( max-width:767px ) {
     .App {
         letter-spacing: 1px;
+        &__wrapper {
+            grid-template-columns: minmax(200px, 350px) minmax(200px, 370px);
+            position: relative;
+        }
+    }
+}
+
+@media ( max-width:565px ) {
+    .App {
         &__wrapper {
             display: flex;
             flex-direction: column-reverse;
