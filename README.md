@@ -5,13 +5,13 @@ This is my pet-project using [NASA API](https://api.nasa.gov/)
 This site created for receiving photos from NASA Mars Rovers - Curiosity, Opportinity, Spirit and Perseverence 
 You can find photos for any sol, watch preview and open slider.
 
-In this project I mastered:
+In this project used:
 
 * react
-* react-create-app
+* create-react-app
 * redux, redux-thunk, react-redux
-* react-transition-group, CSSTransition
-* swiper
+* [react-transition-group](https://github.com/reactjs/react-transition-group), CSSTransition
+* [swiper](https://swiperjs.com/react)
 
 
 You can run this project locally just do:
