@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectAll, fetchImages } from '../../slices/imageGallerySlice';
 import { submitedSolInfoSelector } from '../../slices/manifestSlice';
 
-import ImageGallerySkeleton from '../imageGallerySkeleton/ImageGallerySkeleton';
-import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import SwiperSlider  from '../swiperSlider/SwiperSlider';
 
@@ -107,9 +105,7 @@ const ImageGallery = () => {
     }
 
     const render = () => {
-        if (imagesLoadingStatus === 'idle' && images.length === 0) return <ImageGallerySkeleton/>
-        else if (imagesLoadingStatus === 'loading' && images.length === 0 ) return <Spinner/>
-        else if (imagesLoadingStatus === 'error') return <ErrorMessage/>
+        if (imagesLoadingStatus === 'error') return <ErrorMessage/>
         else if (images.length > 0) return renderItemList(images)
     }
 

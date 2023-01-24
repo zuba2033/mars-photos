@@ -20,7 +20,7 @@ const RoverFilter = () => {
 
     return (
         <div className="roverFilter" >
-            <h2 className={titleClassList}><span>Select rover</span></h2>
+            <h2 className={titleClassList}>Select rover</h2>
             <div className="roverFilter__inputs">
                 <label className="roverFilter__input">
                     <input disabled={disabled} type="radio" name="rover-choise" id="curiosity" value="curiosity" onChange={onRadioChange}/>

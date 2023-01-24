@@ -11,7 +11,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { fetchManifest } from '../../slices/manifestSlice';
 
-import ManifestSkeleton from '../manifestSkeleton/ManifestSkeleton';
+import WelcomeBlock from '../welcomeBlock/WelcomeBlock';
 import Spinner from '../spinner/Spinner';
 import RoverPhotoModal from '../roverPhotoModal/RoverPhotoModal';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -58,7 +58,7 @@ const MissionManifest = () => {
 
     const render = () => {
         if (manifestLoadingStatus === 'loading') return <Spinner/>
-        else if (manifestLoadingStatus === 'idle' && !manifest) return <ManifestSkeleton/>
+        else if (manifestLoadingStatus === 'idle' && !manifest) return <WelcomeBlock/>
         else if (manifestLoadingStatus === 'error') return <ErrorMessage/>
         else if (manifest) return <View 
                                     roverPhoto={roverPhoto} 

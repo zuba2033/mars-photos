@@ -6,7 +6,7 @@
         grid-template-columns: 35% calc(65% - 10px);
         column-gap: 10px;
         margin-top: 20px;
-        max-width: 470px;
+        width: 100%;
     }
     &__btn {
         padding: 10px 20px;
@@ -57,23 +57,8 @@
     }
 }
 
+
 @media ( max-width: 767px ) {
-    .filterForm {
-        position: relative;
-        &__btn {
-            height: 100%;
-        }
-        &__bottom-wrapper {
-            grid-template-columns: repeat(2, 50%);
-            width: 160%;
-            position: absolute;
-            transform: translateX(12.7%);
-        }
-    }
-}
-
-
-@media ( max-width: 565px ) {
     .filterForm {
         &__bottom-wrapper{
             width: calc(100% - 10px);

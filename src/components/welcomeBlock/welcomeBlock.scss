@@ -1,0 +1,57 @@
+@import '../../styles/variables.scss';
+
+.welcomeBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background: $blocks-color;
+    padding: 20px;
+    &__title {
+        text-align: center;
+    }
+    &__text {
+        margin-top: 15px;
+        font-size: 19px;
+        font-weight: 700;
+        text-align: left;
+        line-height: 1.2;
+    }
+    &__list {
+        margin-top: 10px;
+        li {
+            margin-top: 8px;
+        }
+    }
+    &__contacts {
+        margin-top: 10px;
+        a {
+            text-decoration: underline;
+        }
+    }
+}
+
+
+
+
+@media ( max-width: 767px ) {
+    .welcomeBlock {
+        padding: 15px;
+        &__text {
+                max-width: 80%;
+        }
+    }
+}
+
+@media ( max-width: 565px ) {
+    .welcomeBlock {
+        height: auto;
+        padding: 10px;
+        &__text {
+            margin: 10px auto ;
+            max-width: 300px;
+        }
+    }
+}

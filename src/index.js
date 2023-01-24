@@ -8,7 +8,6 @@ import store from './store';
 
 import "swiper/css/bundle";
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>

@@ -100,10 +100,6 @@
 
 @media ( max-width:767px ) {
     .imageGallery {
-        margin-top: 87px;
-        &__title {
-            margin-top: 10px;
-        }
         &__list {
             grid-template-columns: repeat(3, 1fr);
         }
@@ -124,7 +120,6 @@
 
 @media ( max-width:565px ) {
     .imageGallery {
-        margin-top: 10px;
         &__list {
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;

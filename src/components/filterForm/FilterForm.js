@@ -13,6 +13,8 @@ const FilterForm = () => {
 
     const { selectedRover, selectedSol, submitedRover, submitedSol } = useSelector(state => state.form);
     const { totalPhotosInSol } = useSelector(selectedSolInfoSelector);
+    const { imagesLoadingStatus } = useSelector(state => state.images);
+    
 
     const dispatch = useDispatch();
 
@@ -35,7 +37,11 @@ const FilterForm = () => {
                 <RoverFilter/>
                 <SolFilter/>
                 <div className="filterForm__bottom-wrapper">
-                    <button type="submit" disabled={disabled} className={btnClassNames}>Show photos</button>
+                    <button 
+                        type="submit" 
+                        disabled={disabled} 
+                        className={btnClassNames}
+                        >{imagesLoadingStatus === 'loading' ? 'Loading...' : 'Show photos'}</button>
                     <FilterFormInfo/>
                 </div>
             </div>
