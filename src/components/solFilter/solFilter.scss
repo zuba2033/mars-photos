@@ -13,6 +13,7 @@
     }
     &__input {
         margin-top: 8px;
+        margin-right: 10px;
         padding: 4px;
         width: 70px;
         font-size: 17px;
@@ -31,7 +32,6 @@
 
     }
     &__btn {
-        margin-left: 10px;
         padding: 5px;
     }
     h3 {
@@ -75,6 +75,7 @@
         min-height: 0;
         &__btn {
             margin-right: 10px;
+            margin-top: 8px;
         }
         label {
             width: auto;

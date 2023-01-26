@@ -12,9 +12,17 @@ function App() {
 
   const { submitedSol } = useSelector(state => state.form);
 
+  const { imagesLoadingStatus } = useSelector(state => state.images);
+  const loading = imagesLoadingStatus === "loading";
+  const starsAnimationSpeed = loading ? { animationDuration: "5s" } : null;
+
   return (
-    <main className="App">
-      <div className="App__wrapper" style={submitedSol ? {margin: '0'} : null}>
+    <>
+      <div id='stars' style={starsAnimationSpeed}></div>
+      <div id='stars2' style={starsAnimationSpeed} ></div>
+      <div id='stars3' style={starsAnimationSpeed}></div>
+      <main className="App">
+      <div className="App__wrapper" style={submitedSol ? {padding: '0'} : null}>
         <ErrorBoundary>
           <FilterForm/>
         </ErrorBoundary>
@@ -22,10 +30,12 @@ function App() {
           <MissionManifest/>
         </ErrorBoundary>
       </div>
-      <ErrorBoundary>
-        <ImageGallery/>
-      </ErrorBoundary>
-    </main>
+        <ErrorBoundary>
+          <ImageGallery/>
+        </ErrorBoundary>
+      </main>
+    </>
+    
   );
 }
 

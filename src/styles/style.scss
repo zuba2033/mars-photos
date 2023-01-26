@@ -53,6 +53,10 @@ p {
     padding: 0;
 }
 
+body {
+    position: relative;
+}
+
 .button {
     color: #fff;
     background-color: $btn-color;
@@ -72,49 +76,35 @@ p {
     max-width: 1150px;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 20px;
     color: #fff;
     &__wrapper {
         height: 100%;
-        margin-top: 20%;
-        transition: margin 1s;
-        padding-top: 20px;
+        padding-top: 20%;
+        transition: padding 1s;
         display: grid;
-        column-gap: 10px;
-        grid-template-columns: calc(45% - 5px) calc(55% - 5px);
+        column-gap: 20px;
+        grid-template-columns: calc(45% - 5px) calc(55% - 15px);
     }
 }
 
 @media ( max-width:1200px ) {
     .App {
         &__wrapper {
-            margin-top: 10%;
-            grid-template-columns: calc(50% - 5px) calc(50% - 5px);
+            padding-top: 20%;
+            grid-template-columns: calc(50% - 10px) calc(50% - 10px);
         }
     }
 }
-
-
-@media ( max-width:990px ) {
-    .App {
-        padding: 0 15px;
-        &__wrapper {
-            padding-top: 20px;
-            column-gap: 10px;
-        }
-    }
-}
-
 
 @media ( max-width:767px ) {
     .App {
         max-width: 600px;
         display: flex;
         justify-content: center;
-        align-items: center;
         flex-wrap: wrap;
         &__wrapper {
-            margin-top: 0;
+            padding-top: 20px;
             display: flex;
             flex-direction: column-reverse;
         }
