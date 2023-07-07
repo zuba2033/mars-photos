@@ -10,11 +10,12 @@ In this project used:
 * react
 * create-react-app
 * redux, redux-thunk, react-redux
-* [react-transition-group](https://github.com/reactjs/react-transition-group), CSSTransition
-* [swiper](https://swiperjs.com/react)
+* react-transition-group, CSSTransition
+* swiper slider
+* CSS animations
 
-
-You can run this project locally just do:
+Run this project locally! 
+Just do:
 
 * clone branch `review` with `git clone https://github.com/zuba2033/mars-photos.git` or fork it and then clone it from your forked repo
 * `cd mars-photos`
