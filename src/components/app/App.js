@@ -21,6 +21,7 @@ function App() {
       <div id='stars' style={starsAnimationSpeed}></div>
       <div id='stars2' style={starsAnimationSpeed} ></div>
       <div id='stars3' style={starsAnimationSpeed}></div>
+      <div id="stars4" style={starsAnimationSpeed}></div>
       <main className="App">
       <div className="App__wrapper" style={submitedSol ? {padding: '0'} : null}>
         <ErrorBoundary>
