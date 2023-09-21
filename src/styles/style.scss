@@ -59,6 +59,7 @@ body {
 
 .button {
     color: #fff;
+    user-select: none;
     background-color: $btn-color;
     text-align: center;
     font-weight: 700;
@@ -73,8 +74,10 @@ body {
 }
 
 .App {
+    user-select: none;
     max-width: 1150px;
     min-height: 100vh;
+    max-height: min-content;
     margin: 0 auto;
     padding: 20px;
     color: #fff;
@@ -84,7 +87,7 @@ body {
         transition: padding 1s;
         display: grid;
         column-gap: 20px;
-        grid-template-columns: calc(45% - 5px) calc(55% - 15px);
+        grid-template-columns: calc(46% - 5px) calc(54% - 15px);
     }
 }
 
