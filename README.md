@@ -9,7 +9,7 @@ In this project used:
 
 * react
 * create-react-app
-* redux, redux-thunk, react-redux
+* redux (RTK), redux-thunk, react-redux
 * react-transition-group, CSSTransition
 * swiper slider
 * CSS animations
