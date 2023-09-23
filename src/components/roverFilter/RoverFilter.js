@@ -9,7 +9,6 @@ const RoverFilter = () => {
 
     const manifest = useSelector(state => state.manifest);
     const { selectedRover } = useSelector(state => state.form);
-
     const disabled = manifest.manifestLoadingStatus === "loading";
 
     const onRadioChange = (e) => {

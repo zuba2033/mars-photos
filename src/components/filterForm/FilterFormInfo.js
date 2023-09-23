@@ -4,13 +4,14 @@ import { submitedSolInfoSelector } from "../../slices/manifestSlice";
 import './filterForm.scss';
 
 const FilterFormInfo = () => {
-    const { submitedSol } = useSelector(state => state.form);
+    const { submitedSol, submitedRover } = useSelector(state => state.form);
     const { earthDateOfPhoto, totalPhotosInSol }=  useSelector(submitedSolInfoSelector);
 
     const content = submitedSol ? 
             <>
                 <div className="filterForm__info filterForm__info-display">
                     Available {totalPhotosInSol} photos for sol {submitedSol}<br /> 
+                    Rover: {submitedRover[0].toUpperCase() + submitedRover.slice(1)}<br />
                     Earth date: {earthDateOfPhoto}
                 </div>
                 <div className="filterForm__info filterForm__info-adaptive">

@@ -4,7 +4,7 @@ const initialState = {
     selectedRover: '',
     selectedSol: '',
     submitedRover: '',
-    submitedSol: ''
+    submitedSol: '',
 }
 
 const formSlice = createSlice({

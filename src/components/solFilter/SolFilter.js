@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { solFilterChanged } from '../../slices/formSlice';
 import { selectedSolInfoSelector } from '../../slices/manifestSlice';
+import { getRandomIntInclusive } from '../../utils/utils';
 
 import './solFilter.scss';
 
@@ -9,7 +10,9 @@ const SolFilter = () => {
 
     const dispatch = useDispatch();
 
-    const { selectedRover, selectedSol } = useSelector(state => state.form);
+    const inputRef = useRef(null);
+
+    const { selectedRover, selectedSol, submitedRover } = useSelector(state => state.form);
     const { totalPhotosInSol } = useSelector(selectedSolInfoSelector);
     const { maxSol } = useSelector(state => state.manifest[selectedRover] || state.manifest );
     const { manifestLoadingStatus } = useSelector(state => state.manifest);
@@ -18,19 +21,18 @@ const SolFilter = () => {
         dispatch(solFilterChanged(+e.target.value));
     }
 
-    const getRandomIntInclusive = (min, max) => {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min + 1) + min); 
-    }
-
     const onRandomBtnClick = () => {
         const randomInt = getRandomIntInclusive(1, maxSol);
         dispatch(solFilterChanged(randomInt));
         inputRef.current.value = randomInt;
     }
 
-    const inputRef = useRef(null);
+    useEffect(() => {
+        if (submitedRover && submitedRover !== selectedRover) {
+            inputRef.current.value = '';
+            dispatch(solFilterChanged(''));
+        }
+    }, [submitedRover, selectedRover, dispatch])
 
     const disabled = !(maxSol >= 1);
 
